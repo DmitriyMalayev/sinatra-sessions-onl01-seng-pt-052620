@@ -1,15 +1,15 @@
-require_relative 'config/environment'
+require_relative "config/environment" 
 
 class App < Sinatra::Base
   configure do
-    enable :sessions unless test?
-    set :session_secret, "secret"
-  end
+    enable :sessions unless test? 
+    set :session_secret, "secret"  
+  end  
 
-  before do
-    content_type :txt
-  end
-
+  before do 
+    content_type :txt 
+  end 
+  
   get '/' do
     "Welcome to Sinatra Sessions! In this lab, we will be learning about the general principles behind a sessions cookie. In order to proceed, let's go to the '/first_exercise' path."
   end
@@ -19,6 +19,7 @@ class App < Sinatra::Base
   end
 
   get '/set' do
+    session[:foo] = "hello"
     # set the :foo key of the session hash equal to 'hello' here!
     if session[:foo] == 'hello'
       redirect '/fetch'
@@ -36,6 +37,7 @@ class App < Sinatra::Base
   end
 
   get '/set_session' do
+    session[:id] = 1 
     #set session id here
 
     if session[:id] == 1
@@ -50,8 +52,8 @@ class App < Sinatra::Base
     "You did it! session[:id] value: #{session[:id]}.\nNow, clear the session in the '/logout' route.\nSee the readme for further instructions.\nThen, navigate to the '/logout' path."
   end
 
-  get '/logout' do
-    #clear session hash here
+  get '/logout' do    
+    session.clear 
     "Session has now been cleared. session content: #{session.inspect}. Continue on to the '/finish' line!"
   end
 
